@@ -1,0 +1,25 @@
+# 子域名模式 在服务端frps.toml中, 需要设置 subdomainHost
+# DNS record: A记录, Name: *, Content: {ip地址}
+# 文档: https://gofrp.org/en/docs/features/http-https/subdomain/
+
+serverAddr = "117.72.185.137"
+serverPort = 27000
+auth.method = "token"
+auth.token = "xF5kJa#v"
+
+[[proxies]]
+name = 'web-REMOTE'
+type = 'https'
+
+subdomain = "REMOTE"
+
+[proxies.plugin]
+type = "https2http"
+localAddr = "127.0.0.1:8188"
+
+# 这里是泛域名证书 申请网址： https://sslfree.io/
+crtPath = "/kaggle/ComfyUI/frp_related/certificate.crt"
+keyPath = "/kaggle/ComfyUI/frp_related/private.key"
+
+hostHeaderRewrite = "127.0.0.1"
+requestHeaders.set.x-from-where = "frp"

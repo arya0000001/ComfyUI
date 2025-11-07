@@ -1,5 +1,4 @@
 
-from comfy.cli_args import args
 import time
 
 import requests
@@ -46,8 +45,7 @@ def generate_subname(kaggle_name):
 def start_frp():
 
     # subprocess.Popen(["sed", "-i", f"s/REMOTE_PORT/{port}/g", "/kaggle/working/frpc.toml"],shell=False)
-    kaggle_name = args.kaggle_name if args.kaggle_name is not None else "comfy"
-    subname = generate_subname(kaggle_name)
+    subname = generate_subname("comfy")
     subprocess.Popen(["sed", "-i", f"s/REMOTE/{subname}/g", "/kaggle/working/frpc.toml"],shell=False)
 
     subprocess.run(['chmod', '+x', '/kaggle/working/frpc'], check=True)
@@ -57,8 +55,7 @@ def start_frp():
     logging.info(f'frp已经启动')
 
 
-    if args.disable_push_to_worker_kv is None:
-        add_backend_host_to_worker_kv(f"{subname}.yesky.online")
+    add_backend_host_to_worker_kv(f"{subname}.yesky.online")
 
     # notion.add_record_to_notion_database(f"https://k.yesky.online")
     # add_backend_host_to_worker_kv(f"k.yesky.online")

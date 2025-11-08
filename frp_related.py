@@ -1,6 +1,7 @@
 
 import time
 import logging
+from comfy.cli_args import args
 
 import requests
 
@@ -46,7 +47,8 @@ def generate_subname(kaggle_name):
 def start_frp():
 
     # subprocess.Popen(["sed", "-i", f"s/REMOTE_PORT/{port}/g", "/kaggle/working/frpc.toml"],shell=False)
-    subname = generate_subname("comfy")
+    kaggle_name = args.kaggle_name if args.kaggle_name is not None else "comfy"
+    subname = generate_subname(kaggle_name)
     subprocess.Popen(["sed", "-i", f"s/REMOTE/{subname}/g", "/kaggle/working/frpc.toml"],shell=False)
 
     subprocess.run(['chmod', '+x', '/kaggle/working/frpc'], check=True)

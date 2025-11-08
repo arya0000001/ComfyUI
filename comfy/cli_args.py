@@ -35,6 +35,14 @@ class EnumAction(argparse.Action):
 
 parser = argparse.ArgumentParser()
 
+parser.add_argument("--disable_trigger_vercel_deploy", default=None, action="store_true", help="Disable vercel deploy.")
+parser.add_argument("--disable_push_to_worker_kv", default=None, action="store_true", help="Disable Push to worker KV.")
+parser.add_argument("--frp_remote_port_idx", type=int, default=None, help="Set remote port idx.")
+parser.add_argument("--kaggle_name", type=str, default=None, help="Set kaggle name.")
+parser.add_argument("--notion_token", type=str, default=None, help="Set notion token.")
+parser.add_argument("--hf_token", type=str, help="Hugging Face token for uploading files.")
+parser.add_argument("--hf_dataset_name", type=str, help="Hugging Face dataset name for uploading files.")
+
 parser.add_argument("--listen", type=str, default="127.0.0.1", metavar="IP", nargs="?", const="0.0.0.0,::", help="Specify the IP address to listen on (default: 127.0.0.1). You can give a list of ip addresses by separating them with a comma like: 127.2.2.2,127.3.3.3 If --listen is provided without an argument, it defaults to 0.0.0.0,:: (listens on all ipv4 and ipv6)")
 parser.add_argument("--port", type=int, default=8188, help="Set the listen port.")
 parser.add_argument("--tls-keyfile", type=str, help="Path to TLS (SSL) key file. Enables TLS, makes app accessible at https://... requires --tls-certfile to function")

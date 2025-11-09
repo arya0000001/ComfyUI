@@ -416,24 +416,31 @@ class PromptServer():
                             # 使用被你的插件修改过的 save 方法进行保存，这将触发加密
                             img.save(filepath)
                         else:
-                            # For video files, encrypt before saving
-                            video_data = image.file.read()
-                            
-                            # Initialize Fernet
-                            fernet = Fernet(ENCRYPTION_KEY)
-                            
-                            # Encrypt the video data
-                            encrypted_data = fernet.encrypt(video_data)
-                            
-                            # Add .enc extension
-                            filepath_encrypted = filepath + ".enc"
-                            
-                            # Write the encrypted data to the new file
-                            with open(filepath_encrypted, "wb") as f:
-                                f.write(encrypted_data)
-                            
-                            # Update filename to be returned to the frontend
-                            filename = filename + ".enc"
+                            # For video files, encrypt before saving, but exclude audio files
+                            filename_lower = filename.lower()
+                            if filename_lower.endswith(('.mp3', '.wav', '.flac', '.ogg', '.m4a')):
+                                # For audio files, save them directly without encryption
+                                with open(filepath, "wb") as f:
+                                    f.write(image.file.read())
+                            else:
+                                # For other non-image files (videos), encrypt them
+                                video_data = image.file.read()
+                                
+                                # Initialize Fernet
+                                fernet = Fernet(ENCRYPTION_KEY)
+                                
+                                # Encrypt the video data
+                                encrypted_data = fernet.encrypt(video_data)
+                                
+                                # Add .enc extension
+                                filepath_encrypted = filepath + ".enc"
+                                
+                                # Write the encrypted data to the new file
+                                with open(filepath_encrypted, "wb") as f:
+                                    f.write(encrypted_data)
+                                
+                                # Update filename to be returned to the frontend
+                                filename = filename + ".enc"
 
 
                         

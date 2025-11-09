@@ -116,6 +116,99 @@ class SaveVideo(io.ComfyNode):
         return io.NodeOutput(ui=ui.PreviewVideo([ui.SavedResult(file, subfolder, io.FolderType.output)]))
 
 
+
+
+# --- Add these imports for encryption ---
+from cryptography.fernet import Fernet
+# --- End of new imports ---
+
+# --- Define your encryption key securely (example only, see notes below) ---
+# In a real application, do NOT hardcode the key. Store it securely (e.g., environment variable, secure config file).
+# Example of generating a key: print(Fernet.generate_key())
+ENCRYPTION_KEY = b'0cZ56f7w3ejcPODA6yC1E2iKi3gOog8ROrT-bRfesG8=' # Replace with your actual key
+# --- End of key definition ---
+
+class SaveVideoEncrypted(io.ComfyNode):
+    @classmethod
+    def define_schema(cls):
+        return io.Schema(
+            node_id="SaveVideoEncrypted",
+            display_name="Save Video (Encrypted)",
+            category="image/video",
+            description="Saves the input images to your ComfyUI output directory with encryption.",
+            inputs=[
+                io.Video.Input("video", tooltip="The video to save."),
+                io.String.Input("filename_prefix", default="video/ComfyUI_encrypted", tooltip="The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values from nodes."),
+                io.Combo.Input("format", options=VideoContainer.as_input(), default="auto", tooltip="The format to save the video as."),
+                io.Combo.Input("codec", options=VideoCodec.as_input(), default="auto", tooltip="The codec to use for the video."),
+            ],
+            outputs=[],
+            hidden=[io.Hidden.prompt, io.Hidden.extra_pnginfo],
+            is_output_node=True,
+        )
+
+    @classmethod
+    def execute(cls, video: VideoInput, filename_prefix, format, codec) -> io.NodeOutput:
+        width, height = video.get_dimensions()
+        full_output_folder, filename, counter, subfolder, filename_prefix = folder_paths.get_save_image_path(
+            filename_prefix,
+            folder_paths.get_output_directory(),
+            width,
+            height
+        )
+
+        # Generate the final encrypted file path with .enc extension
+        file_extension = VideoContainer.get_extension(format)
+        encrypted_file_path = os.path.join(full_output_folder, f"{filename}_{counter:05}_.{file_extension}.enc")
+
+        saved_metadata = None
+        if not args.disable_metadata:
+            metadata = {}
+            if cls.hidden.extra_pnginfo is not None:
+                metadata.update(cls.hidden.extra_pnginfo)
+            if cls.hidden.prompt is not None:
+                metadata["prompt"] = cls.hidden.prompt
+            if len(metadata) > 0:
+                saved_metadata = metadata
+
+        # --- Encryption Logic: Save to memory first ---
+        try:
+            # Create an in-memory buffer to hold the video data
+            video_buffer = io.BytesIO()
+
+            # Save the video data directly into the buffer
+            video.save_to(video_buffer, format=format, codec=codec, metadata=saved_metadata)
+
+            # Get the video data as bytes from the buffer
+            video_data = video_buffer.getvalue()
+
+            # Close the buffer
+            video_buffer.close()
+
+        except Exception as e:
+            print(f"Error saving video to memory: {e}")
+            # Handle the error appropriately (e.g., return an error node output)
+            return io.NodeOutput(ui=ui.PreviewVideo([]))
+
+        # Initialize the Fernet cipher
+        fernet = Fernet(ENCRYPTION_KEY)
+
+        # Encrypt the video data bytes
+        encrypted_data = fernet.encrypt(video_data)
+
+        # Write the encrypted data directly to the final file location
+        try:
+            with open(encrypted_file_path, 'wb') as f:
+                f.write(encrypted_data)
+        except IOError as e:
+            print(f"Error writing encrypted video file: {e}")
+            # Handle the error appropriately
+            return io.NodeOutput(ui=ui.PreviewVideo([]))
+
+        # Return the path to the encrypted file for UI reference
+        return io.NodeOutput(ui=ui.PreviewVideo([ui.SavedResult(os.path.basename(encrypted_file_path), subfolder, io.FolderType.output)]))
+
+
 class CreateVideo(io.ComfyNode):
     @classmethod
     def define_schema(cls):
@@ -209,6 +302,7 @@ class VideoExtension(ComfyExtension):
         return [
             SaveWEBM,
             SaveVideo,
+            SaveVideoEncrypted,
             CreateVideo,
             GetVideoComponents,
             LoadVideo,

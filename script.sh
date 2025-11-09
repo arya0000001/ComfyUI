@@ -1,15 +1,15 @@
 #    -----  链接模型  ------------
 
 # cosmos ？
-ln -s /kaggle/input/cosmos-predict2-2b-video2world-480p-16fps/cosmos_predict2_2B_video2world_480p_16fps.safetensors ./models/diffusion_models/cosmos_predict2_2B_video2world_480p_16fps.safetensors
+# ln -s /kaggle/input/cosmos-predict2-2b-video2world-480p-16fps/cosmos_predict2_2B_video2world_480p_16fps.safetensors ./models/diffusion_models/cosmos_predict2_2B_video2world_480p_16fps.safetensors
 
 # my lora
 # git clone https://huggingface.co/datasets/Heng365/loras /kaggle/working/fromhf
 # mv /kaggle/working/fromhf/* ./models/loras
 
 # sd lora ？
-ln -s /kaggle/input/moxinv1/MoXinV1.safetensors ./models/loras/MoXinV1.safetensors
-ln -s /kaggle/input/blindbox-v1-mix/blindbox_v1_mix.safetensors ./models/loras/blindbox_v1_mix.safetensors
+# ln -s /kaggle/input/moxinv1/MoXinV1.safetensors ./models/loras/MoXinV1.safetensors
+# ln -s /kaggle/input/blindbox-v1-mix/blindbox_v1_mix.safetensors ./models/loras/blindbox_v1_mix.safetensors
 ln -s /kaggle/input/dreamshaper-8/dreamshaper_8.safetensors ./models/checkpoints/dreamshaper_8.safetensors
 
 ln -s /kaggle/input/control-v11p-sd15-openpose/control_v11p_sd15_openpose.pth ./models/controlnet/control_v11p_sd15_openpose.pth

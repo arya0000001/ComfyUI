@@ -43,6 +43,16 @@ from protocol import BinaryEventTypes
 # Import cache control middleware
 from middleware.cache_middleware import cache_control
 
+import io
+import requests
+from tempfile import SpooledTemporaryFile
+from cryptography.fernet import Fernet
+try:
+    from comfy_extras.nodes_video import ENCRYPTION_KEY
+except ImportError:
+    ENCRYPTION_KEY = None
+
+
 async def send_socket_catch_exception(function, message):
     try:
         await function(message)
@@ -339,11 +349,29 @@ class PromptServer():
 
         def image_upload(post, image_save_function=None):
             image = post.get("image")
+            image_url = post.get("image_url")
             overwrite = post.get("overwrite")
             image_is_duplicate = False
 
             image_upload_type = post.get("type")
             upload_dir, image_upload_type = get_dir_by_type(image_upload_type)
+
+            if image_url:
+                try:
+                    response = requests.get(image_url)
+                    response.raise_for_status()
+                    image_data = io.BytesIO(response.content)
+                    filename = os.path.basename(image_url)
+                    if not filename:
+                        filename = "downloaded_image.png" # Default filename if not derivable from URL
+                    # Create a SpooledTemporaryFile to mimic an uploaded file object
+                    temp_file = SpooledTemporaryFile()
+                    temp_file.write(image_data.getvalue())
+                    temp_file.seek(0)
+                    image = type("ImageFile", (object,), {"file": temp_file, "filename": filename})()
+                except requests.exceptions.RequestException as e:
+                    print(f"Error downloading image from URL: {e}")
+                    return web.Response(status=400, text=f"Error downloading image: {e}")
 
             if image and image.file:
                 filename = image.filename
@@ -376,10 +404,39 @@ class PromptServer():
 
                 if not image_is_duplicate:
                     if image_save_function is not None:
+                        print("image_save_function is not None")
                         image_save_function(image, post, filepath)
                     else:
-                        with open(filepath, "wb") as f:
-                            f.write(image.file.read())
+                        print("image_save_function is None")
+
+                        # if the file is image, then use PIL to save it
+                        if split[1].lower() in ['.jpg', '.jpeg', '.png', '.gif', '.bmp']:
+                            # 使用 PIL 打开上传的图片流
+                            img = Image.open(image.file)
+                            # 使用被你的插件修改过的 save 方法进行保存，这将触发加密
+                            img.save(filepath)
+                        else:
+                            # For video files, encrypt before saving
+                            video_data = image.file.read()
+                            
+                            # Initialize Fernet
+                            fernet = Fernet(ENCRYPTION_KEY)
+                            
+                            # Encrypt the video data
+                            encrypted_data = fernet.encrypt(video_data)
+                            
+                            # Add .enc extension
+                            filepath_encrypted = filepath + ".enc"
+                            
+                            # Write the encrypted data to the new file
+                            with open(filepath_encrypted, "wb") as f:
+                                f.write(encrypted_data)
+                            
+                            # Update filename to be returned to the frontend
+                            filename = filename + ".enc"
+
+
+                        
 
                 return web.json_response({"name" : filename, "subfolder": subfolder, "type": image_upload_type})
             else:
@@ -488,10 +545,87 @@ class PromptServer():
                                                 headers={"Content-Disposition": f"filename=\"{filename}\""})
 
                     if 'channel' not in request.rel_url.query:
+                        # print("*** no channel, rgba")
                         channel = 'rgba'
                     else:
+                        # print("*** channel")
                         channel = request.rel_url.query["channel"]
 
+                    print(f"*** channel: {channel}")
+                    
+                    # 使用PIL的is_animated属性来判断是否为视频/动画文件，或者音频文件。
+                    def is_video_or_animated_file(file_path):
+                        """使用PIL判断文件是否为视频或动画文件"""
+                        try:
+                            with Image.open(file_path) as img:
+                                # 检查是否为动画文件（包括WebP动画、GIF等）
+                                if hasattr(img, 'is_animated') and img.is_animated:
+                                    return True
+                                
+                                # 检查帧数，如果大于1帧，可能是视频
+                                if hasattr(img, 'n_frames') and img.n_frames > 1:
+                                    return True
+                                
+                                # 检查持续时间，如果有持续时间信息，可能是视频
+                                if hasattr(img, 'duration') and img.duration > 0:
+                                    return True
+                                
+                                return False
+                        except Exception:
+                            # 如果PIL无法打开，可能是其他格式的视频文件
+                            # 检查文件扩展名作为备用方案
+                            import mimetypes
+                            mime_type, _ = mimetypes.guess_type(file_path)
+                            if mime_type:
+                                return mime_type.startswith('video/')
+                            
+                            video_extensions = {'.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm', '.mkv', '.m4v'}
+                            file_ext = os.path.splitext(file_path)[1].lower()
+                            return file_ext in video_extensions
+                    
+                    # 检查是否为非图片：视频/动画文件, 或者音频文件。
+                    _, ext = os.path.splitext(filename)
+                    if ext.lower() == '.enc':
+                        if ENCRYPTION_KEY is None:
+                            return web.Response(status=500, text="Encryption key not found, cannot decrypt video.")
+                        
+                        try:
+                            with open(file, 'rb') as f:
+                                encrypted_data = f.read()
+                            
+                            fernet = Fernet(ENCRYPTION_KEY)
+                            decrypted_data = fernet.decrypt(encrypted_data)
+                            
+                            original_filename = os.path.splitext(filename)[0]
+                            content_type = mimetypes.guess_type(original_filename)[0] or 'application/octet-stream'
+
+                            return web.Response(
+                                body=decrypted_data,
+                                headers={
+                                    "Content-Disposition": f'filename="{original_filename}"',
+                                    "Content-Type": content_type
+                                }
+                            )
+                        except Exception as e:
+                            logging.error(f"Error decrypting file: {e}")
+                            return web.Response(status=500, text="Error decrypting file")
+                    elif ext.lower() not in ['.jpg', '.jpeg', '.png', '.gif', '.bmp']:
+                    # if is_video_or_animated_file(file):
+                        content_type = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+                        
+                        # 对于安全考虑，强制某些MIME类型下载而不是显示
+                        if content_type in {'text/html', 'text/html-sandboxed', 'application/xhtml+xml', 'text/javascript', 'text/css'}:
+                            content_type = 'application/octet-stream'
+                        
+                        return web.FileResponse(
+                            file,
+                            headers={
+                                "Content-Disposition": f'filename="{filename}"',
+                                "Content-Type": content_type
+                            }
+                        )
+                    
+                    # 处理静态图像文件
                     if channel == 'rgb':
                         with Image.open(file) as img:
                             if img.mode == "RGBA":
@@ -523,6 +657,32 @@ class PromptServer():
 
                             return web.Response(body=alpha_buffer.read(), content_type='image/png',
                                                 headers={"Content-Disposition": f"filename=\"{filename}\""})
+                    
+                    elif channel == 'rgba':
+                        with Image.open(file) as img:
+                            # 确保图像是 RGBA 模式
+                            if img.mode != 'RGBA':
+                                if img.mode == 'RGB':
+                                    # RGB -> RGBA（Alpha=255）
+                                    new_img = img.convert('RGBA')
+                                else:
+                                    # 其他模式（如 L/LA/P）-> RGBA
+                                    new_img = Image.new('RGBA', img.size, (0, 0, 0, 255))
+                                    new_img.paste(img, (0, 0), img)  # 保留原图的 Alpha（如果有）
+
+                            else:
+                                new_img = img  # 已经是 RGBA，无需转换
+
+                            # 保存为 PNG 并返回
+                            buffer = BytesIO()
+                            new_img.save(buffer, format='PNG')
+                            buffer.seek(0)
+                            return web.Response(
+                                body=buffer.read(),
+                                content_type='image/png',
+                                headers={"Content-Disposition": f"filename=\"{filename}\""}
+                            )
+                    
                     else:
                         # Get content type from mimetype, defaulting to 'application/octet-stream'
                         content_type = mimetypes.guess_type(filename)[0] or 'application/octet-stream'

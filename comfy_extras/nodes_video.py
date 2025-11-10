@@ -296,6 +296,59 @@ class LoadVideo(io.ComfyNode):
         return True
 
 
+class LoadVideoEncrypted(io.ComfyNode):
+    @classmethod
+    def define_schema(cls):
+        input_dir = folder_paths.get_input_directory()
+        files = [f for f in os.listdir(input_dir) if os.path.isfile(os.path.join(input_dir, f)) and f.endswith(".enc")]
+        return io.Schema(
+            node_id="LoadVideoEncrypted",
+            display_name="Load Video (Encrypted)",
+            category="image/video",
+            inputs=[
+                io.Combo.Input("file", options=sorted(files), upload=io.UploadType.video),
+            ],
+            outputs=[
+                io.Video.Output(),
+            ],
+        )
+
+    @classmethod
+    def execute(cls, file) -> io.NodeOutput:
+        video_path = folder_paths.get_annotated_filepath(file)
+        
+        # --- Decryption Logic ---
+        try:
+            with open(video_path, 'rb') as f:
+                encrypted_data = f.read()
+
+            fernet = Fernet(ENCRYPTION_KEY)
+            decrypted_data = fernet.decrypt(encrypted_data)
+
+            # Create an in-memory file-like object for the decrypted data
+            video_buffer = io.BytesIO(decrypted_data)
+            video_buffer.name = os.path.basename(video_path).replace('.enc', '')
+
+        except Exception as e:
+            print(f"Error decrypting video file: {e}")
+            return io.NodeOutput(None)
+        # --- End of Decryption Logic ---
+
+        return io.NodeOutput(VideoFromFile(video_buffer))
+
+    @classmethod
+    def fingerprint_inputs(s, file):
+        video_path = folder_paths.get_annotated_filepath(file)
+        mod_time = os.path.getmtime(video_path)
+        return mod_time
+
+    @classmethod
+    def validate_inputs(s, file):
+        if not folder_paths.exists_annotated_filepath(file):
+            return "Invalid video file: {}".format(file)
+        return True
+
+
 class VideoExtension(ComfyExtension):
     @override
     async def get_node_list(self) -> list[type[io.ComfyNode]]:

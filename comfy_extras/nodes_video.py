@@ -359,6 +359,7 @@ class VideoExtension(ComfyExtension):
             CreateVideo,
             GetVideoComponents,
             LoadVideo,
+            LoadVideoEncrypted,
         ]
 
 async def comfy_entrypoint() -> VideoExtension:

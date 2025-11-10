@@ -8,6 +8,9 @@ import json
 from typing import Optional
 from typing_extensions import override
 from fractions import Fraction
+from io import BytesIO
+from cryptography.fernet import Fernet
+
 from comfy_api.input import AudioInput, ImageInput, VideoInput
 from comfy_api.input_impl import VideoFromComponents, VideoFromFile
 from comfy_api.util import VideoCodec, VideoComponents, VideoContainer
@@ -174,7 +177,7 @@ class SaveVideoEncrypted(io.ComfyNode):
         # --- Encryption Logic: Save to memory first ---
         try:
             # Create an in-memory buffer to hold the video data
-            video_buffer = io.BytesIO()
+            video_buffer = BytesIO()
 
             # Save the video data directly into the buffer
             video.save_to(video_buffer, format=format, codec=codec, metadata=saved_metadata)
@@ -326,9 +329,9 @@ class LoadVideoEncrypted(io.ComfyNode):
             decrypted_data = fernet.decrypt(encrypted_data)
 
             # Create an in-memory file-like object for the decrypted data
-            video_buffer = io.BytesIO(decrypted_data)
-            video_buffer.name = os.path.basename(video_path).replace('.enc', '')
-
+            video_buffer = BytesIO(decrypted_data)
+            video_buffer.seek(0)
+            return (VideoFromFile(video_buffer),)
         except Exception as e:
             print(f"Error decrypting video file: {e}")
             return io.NodeOutput(None)

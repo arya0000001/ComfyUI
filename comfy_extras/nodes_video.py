@@ -120,7 +120,6 @@ class SaveVideo(io.ComfyNode):
 
 
 
-
 # --- Add these imports for encryption ---
 from cryptography.fernet import Fernet
 # --- End of new imports ---
@@ -160,8 +159,16 @@ class SaveVideoEncrypted(io.ComfyNode):
             height
         )
 
-        # Generate the final encrypted file path with .enc extension
-        file_extension = VideoContainer.get_extension(format)
+        # Determine actual format and extension
+        print(f"Format: {format}")
+        actual_format = format
+        if format == "auto":
+            actual_format = "mp4"  # Default to mp4 if auto
+        
+        print(f"Actual Format: {actual_format}")
+        
+        # Get the file extension for the format
+        file_extension = VideoContainer.get_extension(actual_format)
         encrypted_file_path = os.path.join(full_output_folder, f"{filename}_{counter:05}_.{file_extension}.enc")
 
         saved_metadata = None
@@ -179,8 +186,8 @@ class SaveVideoEncrypted(io.ComfyNode):
             # Create an in-memory buffer to hold the video data
             video_buffer = BytesIO()
 
-            # Save the video data directly into the buffer
-            video.save_to(video_buffer, format=format, codec=codec, metadata=saved_metadata)
+            # Use the determined actual format and codec
+            video.save_to(video_buffer, format=actual_format, codec=codec, metadata=saved_metadata)
 
             # Get the video data as bytes from the buffer
             video_data = video_buffer.getvalue()
@@ -210,7 +217,6 @@ class SaveVideoEncrypted(io.ComfyNode):
 
         # Return the path to the encrypted file for UI reference
         return io.NodeOutput(ui=ui.PreviewVideo([ui.SavedResult(os.path.basename(encrypted_file_path), subfolder, io.FolderType.output)]))
-
 
 class CreateVideo(io.ComfyNode):
     @classmethod

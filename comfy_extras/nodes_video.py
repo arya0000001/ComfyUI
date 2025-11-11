@@ -277,7 +277,6 @@ class VideoExtension(ComfyExtension):
         return [
             SaveWEBM,
             SaveVideo,
-            SaveVideoEncrypted,
             CreateVideo,
             GetVideoComponents,
             LoadVideo,

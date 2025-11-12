@@ -161,14 +161,10 @@ ln -s /kaggle/input/qwen-image-asianmix-lora/Qwen_Image_AsianMix_Lora.safetensor
 
 ln -s /kaggle/input/wan2-2-t2v-a14b-highnoise-q4-k-s/Wan2.2-T2V-A14B-HighNoise-Q4_K_S.gguf ./models/diffusion_models/Wan2.2-T2V-A14B-HighNoise-Q4_K_S.gguf
 ln -s /kaggle/input/wan2-2-t2v-a14b-lownoise-q4-0/Wan2.2-T2V-A14B-LowNoise-Q4_0.gguf ./models/diffusion_models/Wan2.2-T2V-A14B-LowNoise-Q4_0.gguf
-ln -s /kaggle/input/wan2-2-i2v-a14b-4steps-lora-high-noise-model/Wan2.2-I2V-A14B-4steps-lora-high_noise_model.safetensors ./models/loras/Wan2.2-I2V-A14B-4steps-lora-high_noise_model.safetensors
-ln -s /kaggle/input/wan2-2-i2v-a14b-4steps-lora-low-noise-model/Wan2.2-I2V-A14B-4steps-lora-low_noise_model.safetensors ./models/loras/Wan2.2-I2V-A14B-4steps-lora-low_noise_model.safetensors
 
 ln -s /kaggle/input/wan2-2-i2v-a14b-highnoise-q4-k-s/Wan2.2-I2V-A14B-HighNoise-Q4_K_S.gguf ./models/diffusion_models/Wan2.2-I2V-A14B-HighNoise-Q4_K_S.gguf
 ln -s /kaggle/input/wan2-2-i2v-a14b-lownoise-q4-0/Wan2.2-I2V-A14B-LowNoise-Q4_0.gguf ./models/diffusion_models/Wan2.2-I2V-A14B-LowNoise-Q4_0.gguf
 
-ln -s /kaggle/input/wan2-2-i2v-lightx2v-4steps-lora-v1-high-noise/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors ./models/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors
-ln -s /kaggle/input/wan2-2-i2v-lightx2v-4steps-lora-v1-low-noise/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors ./models/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors
 
 ln -s /kaggle/input/wan2-2-fun-a14b-control-highnoise-q4-k-s/Wan2.2-Fun-A14B-Control_HighNoise-Q4_K_S.gguf ./models/diffusion_models/Wan2.2-Fun-A14B-Control_HighNoise-Q4_K_S.gguf
 ln -s /kaggle/input/wan2-2-fun-a14b-control-lownoise-q4-0/Wan2.2-Fun-A14B-Control_LowNoise-Q4_0.gguf ./models/diffusion_models/Wan2.2-Fun-A14B-Control_LowNoise-Q4_0.gguf
@@ -176,8 +172,7 @@ ln -s /kaggle/input/wan2-2-fun-a14b-control-lownoise-q4-0/Wan2.2-Fun-A14B-Contro
     
 ln -s /kaggle/input/umt5-xxl-encoder-q5-k-m/umt5-xxl-encoder-Q5_K_M.gguf ./models/text_encoders/umt5-xxl-encoder-Q5_K_M.gguf
 
-ln -s /kaggle/input/wan2-2-t2v-lightx2v-4steps-lora-v1-1-high-noise/wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors ./models/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors
-ln -s /kaggle/input/wan2-2-t2v-lightx2v-4steps-lora-v1-1-low-noise/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors ./models/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors
+
 
 ln -s /kaggle/input/wan2-2-s2v-14b-q4-0/Wan2.2-S2V-14B-Q4_0.gguf ./models/diffusion_models/Wan2.2-S2V-14B-Q4_0.gguf
 
@@ -196,6 +191,19 @@ ln -s /kaggle/working/Wan2.2-I2V-Seko-low_noise_model.safetensors ./models/loras
 ln -s /kaggle/working/Wan2.2-T2V-Seko-high_noise_model.safetensors ./models/loras/Wan2.2-T2V-Seko-high_noise_model.safetensors
 ln -s /kaggle/working/Wan2.2-T2V-Seko-low_noise_model.safetensors ./models/loras/Wan2.2-T2V-Seko-low_noise_model.safetensors
 
+
+# Below LORAs not necessary any more--- 
+
+# ln -s /kaggle/input/wan2-2-i2v-a14b-4steps-lora-high-noise-model/Wan2.2-I2V-A14B-4steps-lora-high_noise_model.safetensors ./models/loras/Wan2.2-I2V-A14B-4steps-lora-high_noise_model.safetensors
+# ln -s /kaggle/input/wan2-2-i2v-a14b-4steps-lora-low-noise-model/Wan2.2-I2V-A14B-4steps-lora-low_noise_model.safetensors ./models/loras/Wan2.2-I2V-A14B-4steps-lora-low_noise_model.safetensors
+
+# ln -s /kaggle/input/wan2-2-i2v-lightx2v-4steps-lora-v1-high-noise/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors ./models/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors
+# ln -s /kaggle/input/wan2-2-i2v-lightx2v-4steps-lora-v1-low-noise/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors ./models/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors
+
+# ln -s /kaggle/input/wan2-2-t2v-lightx2v-4steps-lora-v1-1-high-noise/wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors ./models/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors
+# ln -s /kaggle/input/wan2-2-t2v-lightx2v-4steps-lora-v1-1-low-noise/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors ./models/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors
+
+# ---
 
 # 放大
 # wget -c https://huggingface.co/schwgHao/RealESRGAN_x4plus/resolve/main/RealESRGAN_x4plus.pth -P ./models/upscale_models
@@ -231,6 +239,12 @@ wget -c https://huggingface.co/Comfy-Org/Qwen-Image-DiffSynth-ControlNets/resolv
 # 1 ComfyUI-Manager
 cd custom_nodes
 git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager
+cd /kaggle/ComfyUI
+
+
+cd custom_nodes
+git clone https://github.com/kijai/ComfyUI-KJNodes
+git clone https://github.com/rgthree/rgthree-comfy
 cd /kaggle/ComfyUI
 
 # nunchaku_nodes

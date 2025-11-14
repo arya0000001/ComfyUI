@@ -181,10 +181,9 @@ ln -s /kaggle/input/wav2vec2-large-chinese-zh-cn/wav2vec2-large-chinese-zh-cn.sa
 
 wget -c https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank32_bf16.safetensors -P ./models/loras
 
-# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/high_noise_model.safetensors -O /kaggle/working/Wan2.2-I2V-Seko-high_noise_model.safetensors
-# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/low_noise_model.safetensors -O /kaggle/working/Wan2.2-I2V-Seko-low_noise_model.safetensors
-# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-T2V-A14B-4steps-lora-rank64-Seko-V1.1/high_noise_model.safetensors -O /kaggle/working/Wan2.2-T2V-Seko-high_noise_model.safetensors
-# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-T2V-A14B-4steps-lora-rank64-Seko-V1.1/low_noise_model.safetensors -O /kaggle/working/Wan2.2-T2V-Seko-low_noise_model.safetensors
+wget -c https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan2_1-VACE_module_14B_bf16.safetensors -P ./models/diffusion_models
+wget -c https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/umt5-xxl-enc-bf16.safetensors -P ./models/text_encoders
+
 
 ln -s /kaggle/input/wan2-2-i2v-seko-high-noise-model/Wan2.2-I2V-Seko-high_noise_model.safetensors ./models/loras/Wan2.2-I2V-Seko-high_noise_model.safetensors
 ln -s /kaggle/input/wan2-2-i2v-seko-low-noise-model/Wan2.2-I2V-Seko-low_noise_model.safetensors ./models/loras/Wan2.2-I2V-Seko-low_noise_model.safetensors

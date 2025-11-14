@@ -246,20 +246,19 @@ cd custom_nodes
 git clone https://github.com/kijai/ComfyUI-KJNodes
 git clone https://github.com/rgthree/rgthree-comfy
 git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
-git clone https://github.com/chflame163/ComfyUI_LayerStyle
 git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes
 git clone https://github.com/M1kep/ComfyLiterals
 cd /kaggle/ComfyUI
 
-# nunchaku_nodes
-# cd custom_nodes
-# git clone https://github.com/mit-han-lab/ComfyUI-nunchaku nunchaku_nodes
-# cd /kaggle/ComfyUI
 
-# 安装 nunchaku : 更新了！！！ 
-# pip install https://github.com/nunchaku-tech/nunchaku/releases/download/v1.0.0/nunchaku-1.0.0+torch2.6-cp311-cp311-linux_x86_64.whl
+cd custom_nodes
+git clone https://github.com/chflame163/ComfyUI_LayerStyle
+cd ComfyUI_LayerStyle
+pip install -r requirements.txt
+cd /kaggle/ComfyUI
 
-# wget -c https://huggingface.co/mit-han-lab/nunchaku-flux.1-kontext-dev/resolve/main/svdq-int4_r32-flux.1-kontext-dev.safetensors -P ./models/diffusion_models
+
+
 ln -s /kaggle/input/svdq-int4-r32-flux-1-kontext-dev/svdq-int4_r32-flux.1-kontext-dev.safetensors ./models/diffusion_models/svdq-int4_r32-flux.1-kontext-dev.safetensors
 
 # 对于kaggle T4 来说，fp8版本占有内存有点高，有的时候直接崩掉

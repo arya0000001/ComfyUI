@@ -181,15 +181,15 @@ ln -s /kaggle/input/wav2vec2-large-chinese-zh-cn/wav2vec2-large-chinese-zh-cn.sa
 
 wget -c https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank32_bf16.safetensors -P ./models/loras
 
-wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/high_noise_model.safetensors -O /kaggle/working/Wan2.2-I2V-Seko-high_noise_model.safetensors
-wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/low_noise_model.safetensors -O /kaggle/working/Wan2.2-I2V-Seko-low_noise_model.safetensors
-wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-T2V-A14B-4steps-lora-rank64-Seko-V1.1/high_noise_model.safetensors -O /kaggle/working/Wan2.2-T2V-Seko-high_noise_model.safetensors
-wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-T2V-A14B-4steps-lora-rank64-Seko-V1.1/low_noise_model.safetensors -O /kaggle/working/Wan2.2-T2V-Seko-low_noise_model.safetensors
+# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/high_noise_model.safetensors -O /kaggle/working/Wan2.2-I2V-Seko-high_noise_model.safetensors
+# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/low_noise_model.safetensors -O /kaggle/working/Wan2.2-I2V-Seko-low_noise_model.safetensors
+# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-T2V-A14B-4steps-lora-rank64-Seko-V1.1/high_noise_model.safetensors -O /kaggle/working/Wan2.2-T2V-Seko-high_noise_model.safetensors
+# wget -c https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-T2V-A14B-4steps-lora-rank64-Seko-V1.1/low_noise_model.safetensors -O /kaggle/working/Wan2.2-T2V-Seko-low_noise_model.safetensors
 
-ln -s /kaggle/working/Wan2.2-I2V-Seko-high_noise_model.safetensors ./models/loras/Wan2.2-I2V-Seko-high_noise_model.safetensors
-ln -s /kaggle/working/Wan2.2-I2V-Seko-low_noise_model.safetensors ./models/loras/Wan2.2-I2V-Seko-low_noise_model.safetensors
-ln -s /kaggle/working/Wan2.2-T2V-Seko-high_noise_model.safetensors ./models/loras/Wan2.2-T2V-Seko-high_noise_model.safetensors
-ln -s /kaggle/working/Wan2.2-T2V-Seko-low_noise_model.safetensors ./models/loras/Wan2.2-T2V-Seko-low_noise_model.safetensors
+ln -s /kaggle/input/wan2-2-i2v-seko-high-noise-model/Wan2.2-I2V-Seko-high_noise_model.safetensors ./models/loras/Wan2.2-I2V-Seko-high_noise_model.safetensors
+ln -s /kaggle/input/wan2-2-i2v-seko-low-noise-model/Wan2.2-I2V-Seko-low_noise_model.safetensors ./models/loras/Wan2.2-I2V-Seko-low_noise_model.safetensors
+ln -s /kaggle/input/wan2-2-t2v-seko-high-noise-model/Wan2.2-T2V-Seko-high_noise_model.safetensors ./models/loras/Wan2.2-T2V-Seko-high_noise_model.safetensors
+ln -s /kaggle/input/wan2-2-t2v-seko-low-noise-model/Wan2.2-T2V-Seko-low_noise_model.safetensors ./models/loras/Wan2.2-T2V-Seko-low_noise_model.safetensors
 
 
 # Below LORAs not necessary any more--- 
@@ -245,6 +245,10 @@ cd /kaggle/ComfyUI
 cd custom_nodes
 git clone https://github.com/kijai/ComfyUI-KJNodes
 git clone https://github.com/rgthree/rgthree-comfy
+git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
+git clone https://github.com/chflame163/ComfyUI_LayerStyle
+git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes
+git clone https://github.com/M1kep/ComfyLiterals
 cd /kaggle/ComfyUI
 
 # nunchaku_nodes
@@ -360,10 +364,6 @@ git clone https://github.com/yolain/ComfyUI-Easy-Use
 cd ComfyUI-Easy-Use
 pip install -r requirements.txt -q
 cd /kaggle/ComfyUI
-
-# cd custom_nodes
-# git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes.git
-# cd /kaggle/ComfyUI
 
 
 # cd custom_nodes

@@ -318,6 +318,7 @@ git clone https://github.com/ShmuelRonen/ComfyUI-FreeMemory.git
 pip install psutil
 cd /kaggle/ComfyUI
 
+
 cd custom_nodes
 git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git
 cd ComfyUI-Frame-Interpolation
@@ -354,11 +355,11 @@ cd /kaggle/ComfyUI
 # cd /kaggle/ComfyUI
 
 # 监控VRAM等
-# cd custom_nodes
-# git clone https://github.com/crystian/comfyui-crystools.git
-# cd comfyui-crystools
-# pip install -r requirements.txt -q
-# cd /kaggle/ComfyUI
+cd custom_nodes
+git clone https://github.com/crystian/comfyui-crystools.git
+cd comfyui-crystools
+pip install -r requirements.txt -q
+cd /kaggle/ComfyUI
 
 
 

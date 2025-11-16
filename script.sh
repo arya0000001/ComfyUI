@@ -309,15 +309,6 @@ cd ComfyUI-VideoHelperSuite
 pip install -r requirements.txt
 cd /kaggle/ComfyUI
 
-cd custom_nodes
-git clone https://github.com/SeanScripts/ComfyUI-Unload-Model.git
-cd /kaggle/ComfyUI
-
-cd custom_nodes
-git clone https://github.com/ShmuelRonen/ComfyUI-FreeMemory.git
-pip install psutil
-cd /kaggle/ComfyUI
-
 
 cd custom_nodes
 git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git

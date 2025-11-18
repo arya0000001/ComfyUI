@@ -169,7 +169,9 @@ ln -s /kaggle/input/wan2-2-i2v-a14b-lownoise-q4-0/Wan2.2-I2V-A14B-LowNoise-Q4_0.
 ln -s /kaggle/input/wan2-2-fun-a14b-control-highnoise-q4-k-s/Wan2.2-Fun-A14B-Control_HighNoise-Q4_K_S.gguf ./models/diffusion_models/Wan2.2-Fun-A14B-Control_HighNoise-Q4_K_S.gguf
 ln -s /kaggle/input/wan2-2-fun-a14b-control-lownoise-q4-0/Wan2.2-Fun-A14B-Control_LowNoise-Q4_0.gguf ./models/diffusion_models/Wan2.2-Fun-A14B-Control_LowNoise-Q4_0.gguf
 
-    
+ln -s /kaggle/input/wan2-2-fun-a14b-control-camera-highnoise-q4-k-s/Wan2.2-Fun-A14B-Control-Camera-HighNoise-Q4_K_S.gguf ./models/diffusion_models/Wan2.2-Fun-A14B-Control-Camera-HighNoise-Q4_K_S.gguf
+ln -s /kaggle/input/wan2-2-fun-a14b-control-camera-lownoise-q4-0/Wan2.2-Fun-A14B-Control-Camera-LowNoise-Q4_0.gguf ./models/diffusion_models/Wan2.2-Fun-A14B-Control-Camera-LowNoise-Q4_0.gguf
+
 ln -s /kaggle/input/umt5-xxl-encoder-q5-k-m/umt5-xxl-encoder-Q5_K_M.gguf ./models/text_encoders/umt5-xxl-encoder-Q5_K_M.gguf
 
 

@@ -261,8 +261,9 @@ cd ComfyUI_LayerStyle
 pip install -r requirements.txt
 cd /kaggle/ComfyUI
 
-# wget -c https://huggingface.co/chflame163/ComfyUI_LayerStyle/resolve/main/ComfyUI/models/rmbg/RMBG-1.4/model.pth -P /kaggle/ComfyUI/custom_nodes/ComfyUI_LayerStyle/RMBG-1.4/
-# wget -c https://huggingface.co/mit-han-lab/nunchaku-flux.1-kontext-dev/resolve/main/svdq-int4_r32-flux.1-kontext-dev.safetensors -P /kaggle/ComfyUI/models/diffusion_models/
+# For workflow-better-replace-video-background.json
+wget -c https://huggingface.co/chflame163/ComfyUI_LayerStyle/resolve/main/ComfyUI/models/rmbg/RMBG-1.4/model.pth -P /kaggle/ComfyUI/custom_nodes/ComfyUI_LayerStyle/RMBG-1.4/
+wget -c https://huggingface.co/mit-han-lab/nunchaku-flux.1-kontext-dev/resolve/main/svdq-int4_r32-flux.1-kontext-dev.safetensors -P /kaggle/ComfyUI/models/diffusion_models/
 
 
 

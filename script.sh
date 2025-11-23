@@ -305,11 +305,11 @@ pip install -r requirements.txt -q
 cd /kaggle/ComfyUI
 
 
-cd custom_nodes
-git clone https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait.git
-cd ComfyUI-AdvancedLivePortrait
-pip install -r requirements.txt
-cd /kaggle/ComfyUI
+# cd custom_nodes
+# git clone https://github.com/PowerHouseMan/ComfyUI-AdvancedLivePortrait.git
+# cd ComfyUI-AdvancedLivePortrait
+# pip install -r requirements.txt
+# cd /kaggle/ComfyUI
 
 cd custom_nodes
 # git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
@@ -320,7 +320,11 @@ cd /kaggle/ComfyUI
 
 
 cd custom_nodes
+
+git clone https://github.com/wallen0322/ComfyUI-Wan22FMLF.git
+
 git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git
+
 cd ComfyUI-Frame-Interpolation
 python install.py
 cd /kaggle/ComfyUI

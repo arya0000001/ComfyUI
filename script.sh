@@ -244,10 +244,10 @@ cd /kaggle/ComfyUI
 
 
 cd custom_nodes
-git clone https://github.com/kijai/ComfyUI-segment-anything-2
-git clone https://github.com/chrisgoringe/cg-use-everywhere.git
-git clone https://github.com/kijai/ComfyUI-KJNodes
-git clone https://github.com/KoreTeknology/ComfyUI-Universal-Styler
+# git clone https://github.com/kijai/ComfyUI-segment-anything-2
+# git clone https://github.com/chrisgoringe/cg-use-everywhere.git
+# git clone https://github.com/kijai/ComfyUI-KJNodes
+# git clone https://github.com/KoreTeknology/ComfyUI-Universal-Styler
 # git clone https://github.com/rgthree/rgthree-comfy
 # git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
 # git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes
@@ -322,6 +322,7 @@ cd /kaggle/ComfyUI
 cd custom_nodes
 
 git clone https://github.com/wallen0322/ComfyUI-Wan22FMLF.git
+git clone https://github.com/M1kep/ComfyLiterals
 
 git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git
 

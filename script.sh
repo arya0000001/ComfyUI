@@ -265,6 +265,7 @@ wget -c https://huggingface.co/mit-han-lab/nunchaku-flux.1-kontext-dev/resolve/m
 
 ln -s /kaggle/input/oscai-wan2-2-hn-sscl/oscAI-wan2.2-hn-ssCl.safetensors ./models/loras/oscAI-wan2.2-hn-ssCl.safetensors
 ln -s /kaggle/input/bouncehighwan2-2/BounceHighWan2_2.safetensors ./models/loras/BounceHighWan2_2.safetensors
+ln -s /kaggle/input/bouncelowwan2-2/BounceLowWan2_2.safetensors ./models/loras/BounceLowWan2_2.safetensors
 
 ln -s /kaggle/input/open-clip-xlm-roberta-large-vit-huge-14-fp16/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors ./models/clip_vision/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors
 
@@ -334,6 +335,8 @@ git clone https://github.com/melMass/comfy_mtb
 git clone https://github.com/orssorbit/ComfyUI-wanBlockswap
 git clone https://github.com/stduhpf/ComfyUI-WanMoeKSampler
 
+git clone https://github.com/welltop-cn/ComfyUI-TeaCache.git
+git clone https://github.com/chrisgoringe/cg-use-everywhere.git
 
 git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git
 
@@ -417,9 +420,6 @@ cd /kaggle/ComfyUI
 
 
 
-# cd custom_nodes
-# git clone https://github.com/chrisgoringe/cg-use-everywhere.git
-# cd /kaggle/ComfyUI
 
 # cd custom_nodes
 # git clone https://github.com/ssitu/ComfyUI_UltimateSDUpscale.git

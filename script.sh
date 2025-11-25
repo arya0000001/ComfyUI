@@ -266,6 +266,8 @@ wget -c https://huggingface.co/mit-han-lab/nunchaku-flux.1-kontext-dev/resolve/m
 ln -s /kaggle/input/oscai-wan2-2-hn-sscl/oscAI-wan2.2-hn-ssCl.safetensors ./models/loras/oscAI-wan2.2-hn-ssCl.safetensors
 ln -s /kaggle/input/bouncehighwan2-2/BounceHighWan2_2.safetensors ./models/loras/BounceHighWan2_2.safetensors
 
+ln -s /kaggle/input/open-clip-xlm-roberta-large-vit-huge-14-fp16/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors ./models/clip_vision/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors
+
 ln -s /kaggle/input/svdq-int4-r32-flux-1-kontext-dev/svdq-int4_r32-flux.1-kontext-dev.safetensors ./models/diffusion_models/svdq-int4_r32-flux.1-kontext-dev.safetensors
 
 # 对于kaggle T4 来说，fp8版本占有内存有点高，有的时候直接崩掉

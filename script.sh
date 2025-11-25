@@ -270,6 +270,10 @@ ln -s /kaggle/input/bouncelowwan2-2/BounceLowWan2_2.safetensors ./models/loras/B
 ln -s /kaggle/input/open-clip-xlm-roberta-large-vit-huge-14-fp16/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors ./models/clip_vision/open-clip-xlm-roberta-large-vit-huge-14_fp16.safetensors
 
 ln -s /kaggle/input/svdq-int4-r32-flux-1-kontext-dev/svdq-int4_r32-flux.1-kontext-dev.safetensors ./models/diffusion_models/svdq-int4_r32-flux.1-kontext-dev.safetensors
+ln -s /kaggle/input/flux1-kontext-dev-q6-k/flux1-kontext-dev-Q6_K.gguf ./models/diffusion_models/flux1-kontext-dev-Q6_K.gguf
+ln -s /kaggle/input/kontext-big-breasts-and-butts/kontext_big_breasts_and_butts.safetensors ./models/loras/kontext_big_breasts_and_butts.safetensors
+
+ln -s /kaggle/input/wan2-2-fun-a14b-inp-low-noise-hps2-1/Wan2.2-Fun-A14B-InP-low-noise-HPS2.1.safetensors ./models/loras/Wan2.2-Fun-A14B-InP-low-noise-HPS2.1.safetensors
 
 # 对于kaggle T4 来说，fp8版本占有内存有点高，有的时候直接崩掉
 # ln -s /kaggle/input/qwen-image-edit-2509-fp8-e4m3fn/qwen_image_edit_2509_fp8_e4m3fn.safetensors ./models/diffusion_models/qwen_image_edit_2509_fp8_e4m3fn.safetensors

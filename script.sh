@@ -247,9 +247,8 @@ cd custom_nodes
 # git clone https://github.com/kijai/ComfyUI-segment-anything-2
 # git clone https://github.com/chrisgoringe/cg-use-everywhere.git
 # git clone https://github.com/KoreTeknology/ComfyUI-Universal-Styler
-# git clone https://github.com/rgthree/rgthree-comfy
-# git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
-# git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes
+# 
+# 
 # git clone https://github.com/M1kep/ComfyLiterals
 cd /kaggle/ComfyUI
 
@@ -324,6 +323,15 @@ git clone https://github.com/wallen0322/ComfyUI-Wan22FMLF.git
 git clone https://github.com/M1kep/ComfyLiterals
 git clone https://github.com/kijai/ComfyUI-KJNodes
 
+git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
+git clone https://github.com/rgthree/rgthree-comfy
+git clone https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes
+git clone https://github.com/cubiq/ComfyUI_essentials.git
+git clone https://github.com/melMass/comfy_mtb
+git clone https://github.com/orssorbit/ComfyUI-wanBlockswap
+git clone https://github.com/stduhpf/ComfyUI-WanMoeKSampler
+
+
 git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git
 
 cd ComfyUI-Frame-Interpolation
@@ -354,7 +362,7 @@ cd /kaggle/ComfyUI
 # Goto test no pip install ...
 
 # cd custom_nodes
-# git clone https://github.com/cubiq/ComfyUI_essentials.git
+# 
 # cd ComfyUI_essentials
 # pip install -r requirements.txt -q
 # cd /kaggle/ComfyUI

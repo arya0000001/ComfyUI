@@ -64,6 +64,11 @@ ln -s /kaggle/input/flux1-dev-fp8/flux1-dev-fp8.safetensors ./models/diffusion_m
 ln -s /kaggle/input/flux1-dev-fp8/flux1-dev-fp8.safetensors ./models/checkpoints/flux1-dev-fp8.safetensors
 
 
+#z-image
+ln -s /kaggle/input/qwen-3-4b/qwen_3_4b.safetensors ./models/text_encoders/qwen_3_4b.safetensors
+ln -s /kaggle/input/z-image-turbo-bf16/z_image_turbo_bf16.safetensors ./models/diffusion_models/z_image_turbo_bf16.safetensors
+ln -s /kaggle/input/z-image-ae/z_image_ae.safetensors ./models/vae/z_image_ae.safetensors
+
 ln -s /kaggle/input/sigclip-vision-patch14-384/sigclip_vision_patch14_384.safetensors ./models/clip_vision/sigclip_vision_patch14_384.safetensors
 
 # https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev/blob/main/flux1-redux-dev.safetensors

@@ -34,6 +34,11 @@ cd /kaggle/ComfyUI
 
 cd custom_nodes
 git clone https://github.com/Fannovel16/comfyui_controlnet_aux/
+cd comfyui_controlnet_aux
+pip install -r requirements.txt -q
+cd /kaggle/ComfyUI
+
+cd custom_nodes
 git clone https://github.com/yolain/ComfyUI-Easy-Use
 git clone https://github.com/kijai/ComfyUI-KJNodes
 git clone https://github.com/cubiq/ComfyUI_essentials

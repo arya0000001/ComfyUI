@@ -32,6 +32,15 @@ cd ComfyUI-VideoHelperSuite
 pip install -r requirements.txt
 cd /kaggle/ComfyUI
 
+cd custom_nodes
+git clone https://github.com/Fannovel16/comfyui_controlnet_aux/
+git clone https://github.com/yolain/ComfyUI-Easy-Use
+git clone https://github.com/kijai/ComfyUI-KJNodes
+git clone https://github.com/cubiq/ComfyUI_essentials
+git clone https://github.com/evanspearman/ComfyMath
+git clone https://github.com/M1kep/ComfyLiterals
+cd /kaggle/ComfyUI
+
 wget -O  /kaggle/working/frp_0.54.0_linux_amd64.tar.gz https://github.com/fatedier/frp/releases/download/v0.54.0/frp_0.54.0_linux_amd64.tar.gz
 tar -xzvf /kaggle/working/frp_0.54.0_linux_amd64.tar.gz -C /kaggle/working
 cp -p /kaggle/working/frp_0.54.0_linux_amd64/frpc /kaggle/working/frpc

@@ -39,8 +39,8 @@ pip install -r requirements.txt -q
 cd /kaggle/ComfyUI
 
 cd custom_nodes
-git clone https://github.com/yolain/ComfyUI-Easy-Use
-cd ComfyUI-Easy-Use
+git clone https://github.com/ltdrdata/was-node-suite-comfyui.git
+cd was-node-suite-comfyui
 pip install -r requirements.txt -q
 cd /kaggle/ComfyUI
 
